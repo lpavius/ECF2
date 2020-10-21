@@ -1,0 +1,12 @@
+1.
+SELECT d.matricule, d.nom, d.prenom, t.nom_francais AS technologie_prédilection FROM developers d inner join technologies t
+ON d.id_tech = t.id_tech
+LEFT JOIN apprentissage a ON a.id_dev = d.id_dev
+WHERE a.id_tech IS null;
+
+2.
+SELECT d.matricule, d.nom, d.prenom, count(a.id_tech) AS nb_technos_appris FROM developers d INNER JOIN apprentissage a
+ON a.id_dev = d.id_dev
+GROUP BY d.id_dev;
+
+3.
