@@ -1,12 +1,16 @@
 1.
-SELECT d.matricule, d.nom, d.prenom, t.nom_francais AS technologie_prédilection FROM developers d inner join technologies t
-ON d.id_tech = t.id_tech
+SELECT d.matricule, d.nom, d.prenom, t.nom_francais AS technologie_prédilection FROM developpeurs d
+INNER JOIN technologies t ON d.id_tech = t.id_tech
 LEFT JOIN apprentissage a ON a.id_dev = d.id_dev
 WHERE a.id_tech IS null;
 
 2.
-SELECT d.matricule, d.nom, d.prenom, count(a.id_tech) AS nb_technos_appris FROM developers d INNER JOIN apprentissage a
-ON a.id_dev = d.id_dev
+SELECT d.matricule, d.nom, d.prenom, count(a.id_tech) AS nb_technos_appris FROM developpeurs d 
+INNER JOIN apprentissage a ON a.id_dev = d.id_dev
 GROUP BY d.id_dev;
 
 3.
+SELECT d.matricule, d.nom, d.prenom, t.nom_anglais AS techno_en_commun FROM apprentissage a1
+INNER JOIN apprentissage a2 ON a1.id_dev <> a2.id_dev AND a1.id_tech = a2.id_tech
+INNER JOIN developpeurs d ON d.id_dev = a1.id_dev
+JOIN technologies t ON a1.id_tech = t.id_tech;
