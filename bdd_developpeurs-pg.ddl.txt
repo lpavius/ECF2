@@ -1,23 +1,26 @@
 CREATE TABLE technologies (  
 	id_tech SERIAL PRIMARY KEY,
 	code VARCHAR(10) NOT NULL,
-	nom_francais varchar(255) NOT NULL, 
-	nom_anglais varchar(255) NOT NULL  
+	nom_francais VARCHAR(255) NOT NULL, 
+	nom_anglais VARCHAR(255) NOT NULL  
 ); 
 
 CREATE TABLE developpeurs (  
 	id_dev SERIAL PRIMARY KEY,  
-	matricule varchar(50) NOT NULL,
-	nom varchar(255) NOT NULL, 
-	prenom varchar(255) NOT NULL,
-	date_naissance date NOT NULL,
-	date_entree date NOT NULL,
-	id_tech integer NOT NULL REFERENCES technologies
+	matricule VARCHAR(50) NOT NULL,
+	nom VARCHAR(255) NOT NULL, 
+	prenom VARCHAR(255) NOT NULL,
+	date_naissance DATE NOT NULL,
+	date_entree DATE NOT NULL,
+	id_tech INTEGER NOT NULL REFERENCES technologies
 );
 
 CREATE INDEX id_tech_index ON developpeurs (id_tech);
 
 CREATE TABLE apprentissage (    
-	id_dev integer REFERENCES developpeurs,
-	id_tech integer REFERENCES technologies
+	id_dev INTEGER REFERENCES developpeurs,
+	id_tech INTEGER REFERENCES technologies
 );
+
+ALTER TABLE developpeurs
+ADD id_dev_tech_lead INTEGER REFERENCES developpeurs;

@@ -1,25 +1,30 @@
-insert into technologies (code, nom_francais, nom_anglais) values
+INSERT INTO technologies (code, nom_francais, nom_anglais) VALUES
 	('CD01','Sécurité réseau', 'Network security'), 
     	('CD02','Système d''exploitation', 'Operating system'),
     	('CD03','Informatique en nuage', 'Cloud computing'), 
     	('CD04','Languages informatique', 'Programming language');
 
-insert into developpeurs (matricule, nom, prenom, date_naissance, date_entree, id_tech) values
+INSERT INTO developpeurs (matricule, nom, prenom, date_naissance, date_entree, id_tech) VALUES
 	('MDPH1', 'Poniot', 'Hélène', TO_DATE('03/10/1996','DD/MM/YYYY'), TO_DATE('01/01/2018','DD/MM/YYYY'), (
-	 	SELECT t.id_tech from technologies t WHERE t.code = 'CD03')), 
+	 	SELECT t.id_tech FROM technologies t WHERE t.code = 'CD03')), 
     	('MDMD2', 'Martin', 'Daniel', TO_DATE('26/02/1989','DD/MM/YYYY'), TO_DATE('01/08/2019','DD/MM/YYYY'), (
-		SELECT t.id_tech from technologies t WHERE t.code = 'CD04')),
+		SELECT t.id_tech FROM technologies t WHERE t.code = 'CD04')),
     	('MDST3', 'Sefari', 'Tatiana', TO_DATE('16/10/1999','DD/MM/YYYY'), TO_DATE('15/02/2020','DD/MM/YYYY'), (
-		SELECT t.id_tech from technologies t WHERE t.code = 'CD01'));
+		SELECT t.id_tech FROM technologies t WHERE t.code = 'CD01'));
 
-insert into apprentissage (id_dev, id_tech) values
-	((SELECT d.id_dev FROM developpeurs d where d.matricule = 'MDPH1'), 
-	(SELECT t.id_tech from technologies t WHERE t.code = 'CD01')),
-	((SELECT d.id_dev FROM developpeurs d where d.matricule = 'MDPH1'), 
-	(SELECT t.id_tech from technologies t WHERE t.code = 'CD02')),
-	((SELECT d.id_dev FROM developpeurs d where d.matricule = 'MDST3'), 
-	(SELECT t.id_tech from technologies t WHERE t.code = 'CD02')),
-	((SELECT d.id_dev FROM developpeurs d where d.matricule = 'MDST3'), 
-	(SELECT t.id_tech from technologies t WHERE t.code = 'CD04')),
-	((SELECT d.id_dev FROM developpeurs d where d.matricule = 'MDST3'), 
-	(SELECT t.id_tech from technologies t WHERE t.code = 'CD03'));
+INSERT INTO apprentissage (id_dev, id_tech) VALUES
+	((SELECT d.id_dev FROM developpeurs d WHERE d.matricule = 'MDPH1'), 
+	(SELECT t.id_tech FROM technologies t WHERE t.code = 'CD01')),
+	((SELECT d.id_dev FROM developpeurs d WHERE d.matricule = 'MDPH1'), 
+	(SELECT t.id_tech FROM technologies t WHERE t.code = 'CD02')),
+	((SELECT d.id_dev FROM developpeurs d WHERE d.matricule = 'MDST3'), 
+	(SELECT t.id_tech FROM technologies t WHERE t.code = 'CD02')),
+	((SELECT d.id_dev FROM developpeurs d WHERE d.matricule = 'MDST3'), 
+	(SELECT t.id_tech FROM technologies t WHERE t.code = 'CD04')),
+	((SELECT d.id_dev FROM developpeurs d WHERE d.matricule = 'MDST3'), 
+	(SELECT t.id_tech FROM technologies t WHERE t.code = 'CD03'));
+
+UPDATE developpeurs SET id_dev_tech_lead = (SELECT d.id_dev FROM developpeurs d where d.matricule = 'MDPH1')
+ WHERE id_dev = (SELECT d.id_dev FROM developpeurs d where d.matricule = 'MDMD2');
+UPDATE developpeurs SET id_dev_tech_lead = (SELECT d.id_dev FROM developpeurs d where d.matricule = 'MDPH1')
+ WHERE id_dev = (SELECT d.id_dev FROM developpeurs d where d.matricule = 'MDST3');

@@ -1,3 +1,4 @@
+Partie 1:
 1.
 SELECT d.matricule, d.nom, d.prenom, t.nom_francais AS technologie_prédilection FROM developpeurs d
 INNER JOIN technologies t ON d.id_tech = t.id_tech
@@ -14,3 +15,9 @@ SELECT d.matricule, d.nom, d.prenom, t.nom_anglais AS techno_en_commun FROM appr
 INNER JOIN apprentissage a2 ON a1.id_dev <> a2.id_dev AND a1.id_tech = a2.id_tech
 INNER JOIN developpeurs d ON d.id_dev = a1.id_dev
 JOIN technologies t ON a1.id_tech = t.id_tech;
+
+Partie 2:
+SELECT d1.nom, d1.prenom, count(d2.id_dev) AS nb_de_devs FROM developpeurs d1 
+JOIN developpeurs d2 ON d1.id_dev = d2.id_dev_tech_lead
+GROUP BY d1.id_dev;
+
